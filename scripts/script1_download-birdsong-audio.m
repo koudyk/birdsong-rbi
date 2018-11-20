@@ -1,0 +1,36 @@
+%% 15.6.2018 using the downloadXC.m function to download the audio
+% and audio metadata for the BirdsongQBH project
+
+clc,clear,%close all, clear sound
+laptop='C:\Users\User\Documents\MATLAB\Projects\birdsongQBH';
+exhard='F:\0.birdsongQBH\audio'; %external harddrive
+addpath(genpath(exhard))
+addpath(genpath(laptop))
+
+basic=sort({...
+    'northern cardinal'...
+    'black-capped chickadee'...
+    'mourning dove'...
+    'white-throated sparrow'...
+    'red-eyed vireo'...
+    'sora'...
+    'common yellowthroat'...
+    'prairie warbler'...
+    'black-throated blue warbler'...
+    'veery'
+    });
+
+dwnldDir=exhard;
+wgetDir='C:\Users\User\Downloads';
+
+advanced = {'type:song' 'q>:C' };
+maxQuantity=Inf;
+nums=1:length(basic);
+targetFs=44100;
+start = 187;
+
+tic
+[ meta ] = downloadXC(  wgetDir, dwnldDir,basic,nums,advanced,...
+    targetFs,maxQuantity,start);
+toc % Elapsed time is 6153.665652 seconds.
+save('BirdVox-imitation_metadata','meta','-v7.3')
